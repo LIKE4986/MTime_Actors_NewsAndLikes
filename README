@@ -1,0 +1,98 @@
+项目名：时光网明星资料获取
+作者：理科
+开始时间：2018.07.09
+结束时间：2018.07.19
+项目简介：通过之前按年份爬取的各电影中的明星及其相对应网址，进入并获取对应明星的个人档案、作品年表、荣誉成绩、明星喜爱度和新闻。本人负责明星喜爱度和新闻两部分,其中新闻获取的是标题、时间、摘要和原网址。
+任务要求：
+        1.通过mongodb获取电影明星及其对应网址
+        2.爬取明星喜爱度和新闻
+        3.对各种可能的错误情况（被ban，或者查无此人，或者找不到信息等等情况）进行预测，做到不间断爬取
+        4.最终可以不通过pycharm去跑程序，直接在terminal一键操作
+项目说明：
+        1.主要函数
+            __get_actors_url()          #获取演员url
+            __likes_collections()       #获取演员喜爱度各项元素（姓名、喜爱度、参与人数）
+            __news_collections()        #获取演员新闻各项元素（标题、时间、摘要、原文链接）
+            __get_all()                 #获取所有演员的喜爱度与新闻（相当于一个main函数）
+            __star()                    #保证正常爬取的重要函数
+        2.写入格式：
+            1.喜爱度：json
+            2.新闻：SCV
+        3.爬取方式：
+            1.爬取喜爱度：selenium（考虑到需要等待响应）
+            2.爬取新闻：requests
+
+学习资料：
+        1.爬虫框架 Scrapy 的第一个爬虫示例入门教程:
+            http://wiki.jikexueyuan.com/project/python-crawler/scrapy-example.html
+            （深入学习请见下次github）
+        2.使用Python读写csv文件的三种方法:
+            https://www.cnblogs.com/cloud-ken/p/8432999.html
+        3.Python 数据处理扩展包： pandas 模块的DataFrame介绍（创建和基本操作）:
+            https://blog.csdn.net/u010159842/article/details/52759224/
+
+学习心得：
+        1.区别.*?和.*
+            abbab
+            a(.*?)b         →   b
+            a(.*)b          →   bba
+
+        2.mongodb读取数据
+            #首先先连接
+            conn = MongoClient('192.168.235.55', 27017)     #连接mongodb
+            db = conn['admin']                              #连接数据库名
+            db.authenticate("admin", "123456")              #密码
+            db = conn['team_behind_sc']                     #use team_behind_sc(数据库)
+            people = db['Filmmaker_page']
+            #读取数据
+            for person in people.find():
+                print(person)
+
+        3.去重用集合
+            集合强制转换为列表
+            my_set = set(1, 2, 3)
+            my_list = []
+            my_list = list(my_set)
+
+        4.判断列表是否为空
+            list = []
+            if not list:
+                print('列表为空')
+
+        5.with open()
+            （1）write和writelines的区别
+                    file.write(str)的参数是一个字符串，就是你要写入文件的内容.
+                    file.writelines(sequence)的参数是序列，比如列表，它会迭代帮你写入文件。
+            （2）r, r+, w, w+, a, a+的区别
+                    r   只能读
+                    r+  可读可写，不会创建不存在的文件。如果直接写文件，则从顶部开始写，覆盖之前此位置的内容；如果先读后写，则会在文件最后追加内容。
+                    w   只能写，覆盖整个文件，不存在则创建
+                    w+  可读可写，如果文件存在，则覆盖整个文件不存在则创建
+                    a   只能写，从文件底部添加内容，不存在则创建
+                    a+  可读可写，从文件顶部读取内容，从文件底部添加内容，不存在则创建
+                会创建文件的：w, w+, a, a+
+
+        6.CSV文件
+            （1）写入
+                    import csv
+                    #写入的文件每个元素将以逗号隔开
+                    li = [['hxm', '35', 'male'], ['angelababy', '33', 'female']]
+                    with open('./document/writetest.csv', "w", newline='') as csv_file:
+                        csv_writer = csv.writer(csv_file)
+                        csv_writer.writerows(li)
+            （2）与pd.DataFrame搭配使用
+                    import csv
+                    import pandas as pd
+
+                    li = [['hxm', '35', 'male'], ['angelababy', '33', 'female']]
+                    pd_li = pd.DataFrame(li)
+                    print(pd_li)    #输出将以美观的表格形式输出，默认表头行、列标从0开始
+                    pd_li.to_csv('./document/writetest.csv', index=False, sep='^')  #每个元素将以^隔开
+
+                    #如果将li的每一个元素定义为一个字典
+                    #行表头将以key命名
+                    #列表头以0为起始值
+                    li = [{'name':'hxm', 'age': '35', 'gender': 'male'},{'name':'angelababy', 'age': '33', 'gender': 'female'}]
+                    pd_li = = pd.DataFrame(li)
+                    print(pd_li)
+                    pd_li.to_csv('./document/writetest.csv', index=False, sep='^')
