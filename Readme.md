@@ -50,5 +50,33 @@ pd_table.to_csv("filename.csv", index=False, sep='`')
 * shell
 
 ## Sample
+Take [Benshan Zhao(赵本山)](http://people.mtime.com/965769/) as an example
 ### Get likes
-updating... ...
+1.Get link from mongodb, using selenium to get content in this link. Required to sleep for a second,  waiting for response.</br>
+<img src="https://github.com/LIKE4986/MTime_Actors_NewsAndLikes/blob/master/Mtime_Actors_Pics/likemtime.png" width="995" height="390" alt="图片加载失败时，显示这段字"/></br>
+2.Save as a json_file.</br>
+<img src="https://github.com/LIKE4986/MTime_Actors_NewsAndLikes/blob/master/Mtime_Actors_Pics/likesjson.png" width="572" height="78" alt="图片加载失败时，显示这段字"/></br>
+
+|name|participants|likes|
+|:---|:---|:---|
+|actor's name|the number of people voted|average ratio of preference|
+
+</br>3.Terminal
+<img src="https://github.com/LIKE4986/MTime_Actors_NewsAndLikes/blob/master/Mtime_Actors_Pics/likesterminal.png" width="655" height="182" alt="图片加载失败时，显示这段字"/></br>
+
+
+## Get news
+1.Get link from mongodb, attach "news.html" to get content of all news.</br>
+<img src="https://github.com/LIKE4986/MTime_Actors_NewsAndLikes/blob/master/Mtime_Actors_Pics/newsmtime.png" width="1029" height="722" alt="图片加载失败时，显示这段字"/></br>
+2. Save as a csv_file.</br>
+<img src="https://github.com/LIKE4986/MTime_Actors_NewsAndLikes/blob/master/Mtime_Actors_Pics/newscsv.png" width="1218" height="194" alt="图片加载失败时，显示这段字"/></br>
+***splite by "^"***
+
+|digest|time|title|url|
+|:---|:---|:---|:---|
+|digest of this news|publish time of this news|title of this news|links to this news|
+
+</br>3.Terminal</br>
+<img src="https://github.com/LIKE4986/MTime_Actors_NewsAndLikes/blob/master/Mtime_Actors_Pics/newsterminal.png" width="742" height="367" alt="图片加载失败时，显示这段字"/></br>
+
+
