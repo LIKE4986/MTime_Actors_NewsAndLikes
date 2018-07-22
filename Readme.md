@@ -19,14 +19,14 @@ __star()                    #保证正常爬取的重要函数
 ```
 
 ## Operating environment
-Based on python3.5 and selenium, first need to install:
+Based on python3.4 and selenium, first need to install:
 * requests
 * re
 * time
 * json
 * pandas
 
-## Operation struction
+## Operation instructions
 |star.sh|auto_star.py|get_actor_works.py|
 |:---|:---|:---|
 |<br>**first step**</br>used to execute this project by calling *auto_start.py*|<br>**second step**</br><br>used to calling *LikesAndNewsCollection.py*</br>also used to restart the project|<br>**thrid step**</br><br>main step</br>used to crawl all the information|
